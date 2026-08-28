@@ -1,0 +1,14 @@
+release/main.o
+release/Attivita.o
+release/Lego.o
+release/Musica.o
+release/Sport.o
+release/Videogiochi.o
+release/MainWindow.o
+release/PaginaDettaglio.o
+release/PaginaHome.o
+release/PaginaCreazioneAttivita.o
+release/moc_MainWindow.o
+release/moc_PaginaDettaglio.o
+release/moc_PaginaHome.o
+release/moc_PaginaCreazioneAttivita.o
