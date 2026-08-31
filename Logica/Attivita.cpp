@@ -11,19 +11,24 @@ Attivita::~Attivita() {
 
 std::string Attivita::riepilogo() const {
     return dataInizio.toString("dd/MM/yyyy").toStdString() + " - " + nome + " (" + descrizione +
-        ") [" + conversioneOrario(tempoDedicato) +
-        ", soddisfazione: " + std::to_string(soddisfazione) + "/10]: " + dettagliSpecifici();
+        ") [" + conversioneOrario() + ", soddisfazione: " + std::to_string(soddisfazione) +
+        "/10]: " + dettagliSpecifici();
 }
 
-std::string Attivita::conversioneOrario(int totMinuti) const {
-    if (totMinuti <= 59) {
-        return std::to_string(totMinuti) + "min";
-    } else {
-        int ore = totMinuti / 60;
-        int minuti = totMinuti % 60;
-
-        return std::to_string(ore) + "h " + std::to_string(minuti) + "min";
+std::string Attivita::conversioneOrario() const {
+    if (tempoDedicato <= 59) {
+        return std::to_string(tempoDedicato) + "min";
     }
+    return std::to_string(oreDaTempoDedicato()) + "h " + std::to_string(minutiDaTempoDedicato()) +
+        "min";
+}
+
+int Attivita::oreDaTempoDedicato() const {
+    return tempoDedicato / 60;
+}
+
+int Attivita::minutiDaTempoDedicato() const {
+    return tempoDedicato % 60;
 }
 
 std::string Attivita::getNome() const {
@@ -49,7 +54,7 @@ void Attivita::setSoddisfazione(int sodd) {
     soddisfazione = sodd;
 }
 void Attivita::setTempoDedicato(int tempDed) {
-    if (tempDed == 0)
+    if (tempDed == 0 || tempDed < 0)
         throw std::invalid_argument("Non si può creare un'attività di 0 minuti");
     else
         tempoDedicato = tempDed;

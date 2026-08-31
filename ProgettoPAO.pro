@@ -26,6 +26,7 @@ HEADERS += Logica/Attivita.h \
            Logica/Musica.h \
            Logica/Sport.h \
            Logica/Videogiochi.h \
+           Logica/GestoreAttivita.h \
            UI/MainWindow.h \
            UI/PaginaDettaglio.h \
            UI/PaginaHome.h \
@@ -36,6 +37,7 @@ SOURCES += main.cpp \
            Logica/Musica.cpp \
            Logica/Sport.cpp \
            Logica/Videogiochi.cpp \
+           Logica/GestoreAttivita.cpp \
            UI/MainWindow.cpp \
            UI/PaginaDettaglio.cpp \
            UI/PaginaHome.cpp \

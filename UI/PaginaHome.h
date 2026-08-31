@@ -1,24 +1,21 @@
 #ifndef PAGINAHOME_H
 #define PAGINAHOME_H
-#include "Attivita.h"
+#include "GestoreAttivita.h"
 #include <QComboBox>
 #include <QLineEdit>
 #include <QListWidget>
 #include <QPushButton>
 #include <QWidget>
-#include <memory>
 
 class PaginaHome : public QWidget {
     Q_OBJECT
 
 private:
-    std::vector<std::unique_ptr<Attivita>> attivita;
     QLineEdit *barraRicerca;
     QComboBox *selettoreAttivita;
     QPushButton *aggiuntaAttivita;
     QListWidget *listaAttivita;
-
-    void aggiornaPagina();
+    GestoreAttivita *gestoreAtt;
 
 signals:
     void richiestaDettaglio(Attivita *attivita);
@@ -28,8 +25,8 @@ private slots:
     // per adesso niente
 
 public:
-    PaginaHome(QWidget *parent = nullptr);
-    void aggiungiAttivita(Attivita *a);
+    void aggiornaPagina();
+    PaginaHome(GestoreAttivita *gestore, QWidget *parent = nullptr);
 };
 
 #endif

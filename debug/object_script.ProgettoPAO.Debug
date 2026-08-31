@@ -4,10 +4,12 @@ debug/Lego.o
 debug/Musica.o
 debug/Sport.o
 debug/Videogiochi.o
+debug/GestoreAttivita.o
 debug/MainWindow.o
 debug/PaginaDettaglio.o
 debug/PaginaHome.o
 debug/PaginaCreazioneAttivita.o
+debug/moc_GestoreAttivita.o
 debug/moc_MainWindow.o
 debug/moc_PaginaDettaglio.o
 debug/moc_PaginaHome.o

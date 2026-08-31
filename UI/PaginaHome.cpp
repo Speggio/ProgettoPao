@@ -7,10 +7,11 @@
 #include <QDateTime>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <iostream>
 
-PaginaHome::PaginaHome(QWidget *parent) : QWidget(parent) {
+PaginaHome::PaginaHome(GestoreAttivita *gestore, QWidget *parent) :
+    QWidget(parent), gestoreAtt(gestore) {
 
+    //----------------LAYER E VISUALIZZAZIONE DELLA PAGINA----------------//
     barraRicerca = new QLineEdit(this);
     selettoreAttivita = new QComboBox(this);
     aggiuntaAttivita = new QPushButton("Aggiungi attivita", this);
@@ -26,44 +27,23 @@ PaginaHome::PaginaHome(QWidget *parent) : QWidget(parent) {
     layout1->addWidget(selettoreAttivita);
     layout1->addWidget(aggiuntaAttivita);
     layout2->addWidget(listaAttivita);
-
-    QDateTime data(QDate(2025, 10, 10), QTime(0, 0));
-
-    attivita.push_back(std::make_unique<Sport>("Sessione di calcio", "Allenamento di calcio", 10,
-        data, 180, "Calcio", 350, 145));
-    attivita.push_back(std::make_unique<Musica>("Ascolto", "Sessione di ascolto", 8, data, 150,
-        "Fame", "Nayt", "Indie", 15, true));
-    attivita.push_back(std::make_unique<Lego>("Costruzione", "Sessione Lego", 9, data, 120,
-        "Porsche", "Technic", 1580, false));
-    attivita.push_back(std::make_unique<Videogiochi>("Gioco", "Sessione videogiochi", 6, data, 25,
-        "Fortnite", "Epic", "Battle Royale", false));
-
-    for (const auto &a : attivita) {
-        std::cout << a->riepilogo() << std::endl;
-    }
+    //----------------FINE LAYER E VISUALIZZAZIONE DELLA PAGINA----------------//
 
     connect(aggiuntaAttivita, &QPushButton::clicked, this, &PaginaHome::richiestaCreazioneAttivita);
     // per sapere a quale elemento della lista sto cliccando
     connect(listaAttivita, &QListWidget::itemClicked, this, [this](QListWidgetItem *item) {
         int riga = listaAttivita->row(item);
-        emit richiestaDettaglio(attivita[riga].get());
+        emit richiestaDettaglio(gestoreAtt->elencoAttivita()[riga].get());
     });
 
     aggiornaPagina();
-    // Per adesso non la uso
-    // connect(bottoneAggiungi, &QPushButton::clicked, this, &ListaForme::aggiungiForma);
 }
 
 void PaginaHome::aggiornaPagina() {
 
     listaAttivita->clear();
-    for (const auto &a : attivita) {
+    for (const auto &a : gestoreAtt->elencoAttivita()) {
         QString testo = QString::fromStdString(a->riepilogo());
         listaAttivita->addItem(testo);
     }
-}
-
-void PaginaHome::aggiungiAttivita(Attivita *a) {
-    attivita.push_back(std::unique_ptr<Attivita>(a));
-    aggiornaPagina();
 }

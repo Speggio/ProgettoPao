@@ -9,6 +9,8 @@ class PaginaDettaglio : public QWidget {
     Q_OBJECT
 
 private:
+    Attivita *attivitaCorrente = nullptr;
+
     QLabel *labelTitolo;
     QLabel *labelData;
     QLabel *labelTempo;
@@ -17,9 +19,11 @@ private:
 
     QPushButton *indietro;
     QPushButton *modifica;
+    QPushButton *elimina;
 
 signals:
     void tornaIndietro();
+    void eliminazioneAttivita(Attivita *a);
 
 public:
     PaginaDettaglio(QWidget *parent = nullptr);

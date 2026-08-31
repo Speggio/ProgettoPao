@@ -21,7 +21,9 @@ public:
 
     virtual std::string dettagliSpecifici() const = 0;
     virtual std::string riepilogo() const;
-    std::string conversioneOrario(int) const;
+    std::string conversioneOrario() const;
+    int oreDaTempoDedicato() const;
+    int minutiDaTempoDedicato() const;
 
     std::string getNome() const;
     std::string getDescrizione() const;

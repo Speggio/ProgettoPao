@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include "GestoreAttivita.h"
 #include "PaginaCreazioneAttivita.h"
 #include "PaginaDettaglio.h"
 #include "PaginaHome.h"
@@ -14,6 +15,7 @@ private:
     PaginaHome *pagHome;
     PaginaDettaglio *pagDettaglio;
     PaginaCreazioneAttivita *pagNewAttivita;
+    GestoreAttivita *gestore;
 
 public:
     MainWindow(QWidget *parent = nullptr);

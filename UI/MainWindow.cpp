@@ -3,9 +3,11 @@
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
+    //-------------------IMPOSTAZIONE LAYER-------------------//
     stack = new QStackedWidget(this);
 
-    pagHome = new PaginaHome(this);
+    gestore = new GestoreAttivita(this);
+    pagHome = new PaginaHome(gestore, this);
     pagDettaglio = new PaginaDettaglio(this);
     pagNewAttivita = new PaginaCreazioneAttivita(this);
 
@@ -18,7 +20,9 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     layout->addWidget(stack);
 
     stack->setCurrentIndex(0);
+    //-------------------FINE LAYER//-------------------//
 
+    //-------------------VARI CONNECT-------------------//
     connect(pagHome, &PaginaHome::richiestaDettaglio, this, [this](Attivita *elem) {
         pagDettaglio->leggiAttivita(elem);
         stack->setCurrentIndex(1);
@@ -34,9 +38,20 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     // collegamento per la creazione di nuove attività
     connect(pagNewAttivita, &PaginaCreazioneAttivita::aggiungiAttivita, this, [this](Attivita *a) {
-        pagHome->aggiungiAttivita(a);
+        gestore->aggiungiAttivita(a);
         swtichPagina0();
     });
+
+    // collegamento per la rimozione di attività
+    connect(pagDettaglio, &PaginaDettaglio::eliminazioneAttivita, this, [this](Attivita *a) {
+        gestore->eliminaAttivita(a);
+        swtichPagina0();
+    });
+
+    // NUOVI CONNECT
+    connect(gestore, &GestoreAttivita::attivitaCambiate, pagHome, &PaginaHome::aggiornaPagina);
+
+    //-------------------FINE CONNECT-------------------//
 }
 
 void MainWindow::swtichPagina0() {
