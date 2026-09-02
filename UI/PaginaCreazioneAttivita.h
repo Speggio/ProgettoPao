@@ -1,6 +1,7 @@
 #ifndef PAGINACREAZIONEATTIVITA_H
 #define PAGINACREAZIONEATTIVITA_H
 #include "Attivita.h"
+#include "GestoreAttivita.h"
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDateEdit>
@@ -15,6 +16,8 @@ class PaginaCreazioneAttivita : public QWidget {
     Q_OBJECT
 
 private:
+    GestoreAttivita *gestoreAtt;
+
     // widget generali
     QComboBox *selettoreAttivita;
     QStackedWidget *stackCampiSpecifici;
@@ -40,7 +43,7 @@ private:
 
     // musica
     QLineEdit *branoPrefe;
-    QLineEdit *atristaPrefe;
+    QLineEdit *artistaPrefe;
     QLineEdit *generePrinc;
     QSpinBox *nBrani;
     QCheckBox *scopertaMusica;
@@ -62,7 +65,10 @@ signals:
     void aggiungiAttivita(Attivita *nuovaAttivita);
 
 public:
-    PaginaCreazioneAttivita(QWidget *parent = nullptr);
+    PaginaCreazioneAttivita(GestoreAttivita *gestore, QWidget *parent = nullptr);
+    bool campiValidi();
+    void pulisciCampi();
+    void creaAttivita();
 };
 
 #endif

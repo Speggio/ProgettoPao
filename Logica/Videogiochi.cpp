@@ -7,9 +7,13 @@ Videogiochi::Videogiochi(std::string nome, std::string descr, int sodd, QDateTim
 }
 
 std::string Videogiochi::dettagliSpecifici() const {
-    return "Il videogioco: " + nomeGioco + " si trova nella piattaforma: " + piattaforma +
-        " e come genere ha: " + genere + " (" + (completato ? "completato" : "non completato") +
-        ")";
+    return "Il videogioco: " + nomeGioco + "\nsi trova nella piattaforma: " + piattaforma +
+        "\ne come genere ha: " + genere + "\nIl gioco " +
+        (completato ? "e' stato completato" : "non e' stato ancora completato");
+}
+
+void Videogiochi::accetta(VisitorAttivita &va) {
+    va.visita(*this);
 }
 
 std::string Videogiochi::getNomeGioco() const {

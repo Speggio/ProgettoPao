@@ -3,6 +3,9 @@
 #include <QDateTime>
 #include <string>
 
+// forwarding
+class VisitorAttivita;
+
 class Attivita {
 
 private:
@@ -20,6 +23,7 @@ public:
     virtual ~Attivita();
 
     virtual std::string dettagliSpecifici() const = 0;
+    virtual void accetta(VisitorAttivita &va) = 0;
     virtual std::string riepilogo() const;
     std::string conversioneOrario() const;
     int oreDaTempoDedicato() const;
@@ -31,6 +35,8 @@ public:
     QDateTime getDataInizio() const;
     int getTempoDedicato() const;
 
+    void setNome(std::string nome);
+    void setDescrizione(std::string descrizione);
     void setSoddisfazione(int soddisfazione);
     void setTempoDedicato(int tempoDedicato);
 };

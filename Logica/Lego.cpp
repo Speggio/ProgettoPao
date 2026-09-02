@@ -7,9 +7,13 @@ Lego::Lego(std::string nome, std::string descr, int sodd, QDateTime dataIn, int 
 }
 
 std::string Lego::dettagliSpecifici() const {
-    return "Il set: " + nomeSet + " fa parte della tipologia: " + tipologiaSet +
-        " e ha: " + std::to_string(pezziTot) + " pezzi totali (" +
-        (completato ? "completato" : "non completato") + ")";
+    return "Il set: " + nomeSet + "\nfa parte della tipologia: " + tipologiaSet +
+        "\ne ha: " + std::to_string(pezziTot) + " pezzi totali \n" +
+        (completato ? "E' stato completato" : "Non e' stato ancora completato");
+}
+
+void Lego::accetta(VisitorAttivita &va) {
+    va.visita(*this);
 }
 
 std::string Lego::getNomeSet() const {

@@ -1,0 +1,50 @@
+[
+    {
+        "calorie": 350,
+        "data": "10/10/2025",
+        "descrizione": "Allenamento di calcio",
+        "frecCardiaca": 145,
+        "nome": "Sessione di calcio",
+        "soddisfazione": 10,
+        "tempo": 180,
+        "tipoAtt": "Sport",
+        "tipoSport": "Calcio"
+    },
+    {
+        "artista": "Nayt",
+        "brano": "Fame",
+        "data": "10/10/2025",
+        "descrizione": "Sessione di ascolto",
+        "genere": "Indie",
+        "nome": "Ascolto",
+        "numeroBrani": 15,
+        "scopertaMusica": true,
+        "soddisfazione": 8,
+        "tempo": 150,
+        "tipoAtt": "Musica"
+    },
+    {
+        "completato": false,
+        "data": "10/10/2025",
+        "descrizione": "Sessione Lego",
+        "nome": "Costruzione",
+        "nomeSet": "Porsche",
+        "pezziTot": 1580,
+        "soddisfazione": 9,
+        "tempo": 120,
+        "tipoAtt": "Lego",
+        "tipoSet": "Technic"
+    },
+    {
+        "completato": false,
+        "data": "10/10/2025",
+        "descrizione": "Sessione videogiochi",
+        "genere": "Battle Royale",
+        "nome": "Gioco",
+        "nomeGioco": "Fortnite",
+        "piattaforma": "Epic",
+        "soddisfazione": 6,
+        "tempo": 25,
+        "tipoAtt": "Videogiochi"
+    }
+]

@@ -1,6 +1,7 @@
 #ifndef LEGO_H
 #define LEGO_H
 #include "Attivita.h"
+#include "VisitorAttivita.h"
 
 class Lego : public Attivita {
 private:
@@ -15,6 +16,7 @@ public:
         bool completato);
 
     std::string dettagliSpecifici() const override;
+    void accetta(VisitorAttivita &va) override;
 
     std::string getNomeSet() const;
     std::string getTipologiaSet() const;

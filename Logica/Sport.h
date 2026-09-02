@@ -1,6 +1,7 @@
 #ifndef SPORT_H
 #define SPORT_H
 #include "Attivita.h"
+#include "VisitorAttivita.h"
 
 class Sport : public Attivita {
 private:
@@ -13,6 +14,7 @@ public:
         int tempoDedicato, std::string tipoSport, int calorie, int freqCardiacaMedia);
 
     std::string dettagliSpecifici() const override;
+    void accetta(VisitorAttivita &va) override;
 
     std::string getTipoSport() const;
     int getCalorie() const;

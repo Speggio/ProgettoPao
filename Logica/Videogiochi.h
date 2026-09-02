@@ -1,6 +1,7 @@
 #ifndef VIDEOGIOCHI_H
 #define VIDEOGIOCHI_H
 #include "Attivita.h"
+#include "VisitorAttivita.h"
 
 class Videogiochi : public Attivita {
 private:
@@ -15,6 +16,7 @@ public:
         bool completato);
 
     std::string dettagliSpecifici() const override;
+    void accetta(VisitorAttivita &va) override;
 
     std::string getNomeGioco() const;
     std::string getPiattaforma() const;

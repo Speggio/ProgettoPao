@@ -4,6 +4,7 @@
 #include "PaginaCreazioneAttivita.h"
 #include "PaginaDettaglio.h"
 #include "PaginaHome.h"
+#include "PaginaModificaAttivita.h"
 #include <QStackedWidget>
 #include <QWidget>
 
@@ -15,6 +16,7 @@ private:
     PaginaHome *pagHome;
     PaginaDettaglio *pagDettaglio;
     PaginaCreazioneAttivita *pagNewAttivita;
+    PaginaModificaAttivita *pagModifica;
     GestoreAttivita *gestore;
 
 public:
@@ -24,6 +26,7 @@ public slots:
     void swtichPagina0();
     void swtichPagina1();
     void swtichPagina2();
+    void swtichPagina3();
 };
 
 #endif

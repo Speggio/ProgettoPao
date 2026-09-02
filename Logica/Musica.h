@@ -1,6 +1,7 @@
 #ifndef MUSICA_H
 #define MUSICA_H
 #include "Attivita.h"
+#include "VisitorAttivita.h"
 
 class Musica : public Attivita {
 private:
@@ -16,6 +17,7 @@ public:
         std::string generePrincipale, int numeroBrani, bool scopertaMusicale);
 
     std::string dettagliSpecifici() const override;
+    void accetta(VisitorAttivita &va) override;
 
     std::string getBranoPreferito() const;
     std::string getArtistaPreferito() const;

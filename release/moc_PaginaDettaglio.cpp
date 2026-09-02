@@ -44,7 +44,8 @@ template <> constexpr inline auto PaginaDettaglio::qt_create_metaobjectdata<qt_m
         "",
         "eliminazioneAttivita",
         "Attivita*",
-        "a"
+        "a",
+        "modificaAttivita"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -52,6 +53,10 @@ template <> constexpr inline auto PaginaDettaglio::qt_create_metaobjectdata<qt_m
         QtMocHelpers::SignalData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'eliminazioneAttivita'
         QtMocHelpers::SignalData<void(Attivita *)>(3, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 4, 5 },
+        }}),
+        // Signal 'modificaAttivita'
+        QtMocHelpers::SignalData<void(Attivita *)>(6, 2, QMC::AccessPublic, QMetaType::Void, {{
             { 0x80000000 | 4, 5 },
         }}),
     };
@@ -79,6 +84,7 @@ void PaginaDettaglio::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         switch (_id) {
         case 0: _t->tornaIndietro(); break;
         case 1: _t->eliminazioneAttivita((*reinterpret_cast<std::add_pointer_t<Attivita*>>(_a[1]))); break;
+        case 2: _t->modificaAttivita((*reinterpret_cast<std::add_pointer_t<Attivita*>>(_a[1]))); break;
         default: ;
         }
     }
@@ -86,6 +92,8 @@ void PaginaDettaglio::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         if (QtMocHelpers::indexOfMethod<void (PaginaDettaglio::*)()>(_a, &PaginaDettaglio::tornaIndietro, 0))
             return;
         if (QtMocHelpers::indexOfMethod<void (PaginaDettaglio::*)(Attivita * )>(_a, &PaginaDettaglio::eliminazioneAttivita, 1))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (PaginaDettaglio::*)(Attivita * )>(_a, &PaginaDettaglio::modificaAttivita, 2))
             return;
     }
 }
@@ -109,14 +117,14 @@ int PaginaDettaglio::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
@@ -131,5 +139,11 @@ void PaginaDettaglio::tornaIndietro()
 void PaginaDettaglio::eliminazioneAttivita(Attivita * _t1)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1);
+}
+
+// SIGNAL 2
+void PaginaDettaglio::modificaAttivita(Attivita * _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1);
 }
 QT_WARNING_POP

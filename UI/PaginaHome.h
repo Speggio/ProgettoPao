@@ -1,6 +1,7 @@
 #ifndef PAGINAHOME_H
 #define PAGINAHOME_H
 #include "GestoreAttivita.h"
+#include "VisitorFiltraAttivita.h"
 #include <QComboBox>
 #include <QLineEdit>
 #include <QListWidget>
@@ -16,10 +17,14 @@ private:
     QPushButton *aggiuntaAttivita;
     QListWidget *listaAttivita;
     GestoreAttivita *gestoreAtt;
+    QPushButton *caricaFile;
+    QPushButton *salvaFile;
 
 signals:
     void richiestaDettaglio(Attivita *attivita);
     void richiestaCreazioneAttivita();
+    void richiestaSalvaFile();
+    void richiestaCaricaFile();
 
 private slots:
     // per adesso niente

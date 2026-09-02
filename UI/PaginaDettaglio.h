@@ -12,6 +12,7 @@ private:
     Attivita *attivitaCorrente = nullptr;
 
     QLabel *labelTitolo;
+    QLabel *labelDescrizione;
     QLabel *labelData;
     QLabel *labelTempo;
     QLabel *labelSoddisfazione;
@@ -24,6 +25,7 @@ private:
 signals:
     void tornaIndietro();
     void eliminazioneAttivita(Attivita *a);
+    void modificaAttivita(Attivita *a);
 
 public:
     PaginaDettaglio(QWidget *parent = nullptr);

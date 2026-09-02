@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include <QFileDialog>
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
@@ -9,11 +10,13 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     gestore = new GestoreAttivita(this);
     pagHome = new PaginaHome(gestore, this);
     pagDettaglio = new PaginaDettaglio(this);
-    pagNewAttivita = new PaginaCreazioneAttivita(this);
+    pagNewAttivita = new PaginaCreazioneAttivita(gestore, this);
+    pagModifica = new PaginaModificaAttivita(this);
 
     stack->addWidget(pagHome);
     stack->addWidget(pagDettaglio);
     stack->addWidget(pagNewAttivita);
+    stack->addWidget(pagModifica);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -28,15 +31,18 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
         stack->setCurrentIndex(1);
     });
 
-    // collegamento per passare alla pagine di creazione delle attività
-    connect(pagHome, &PaginaHome::richiestaCreazioneAttivita, this, &MainWindow::swtichPagina2);
+    //  collegamento per passare alla pagina di creazione delle attività
+    connect(pagHome, &PaginaHome::richiestaCreazioneAttivita, this, [this]() {
+        pagNewAttivita->pulisciCampi();
+        stack->setCurrentIndex(2);
+    });
 
     // collegamenti per tornare indietro alla pagina home
     connect(pagDettaglio, &PaginaDettaglio::tornaIndietro, this, &MainWindow::swtichPagina0);
     connect(pagNewAttivita, &PaginaCreazioneAttivita::tornaIndietro, this,
         &MainWindow::swtichPagina0);
 
-    // collegamento per la creazione di nuove attività
+    // collegamento per la creazione di una nuova attività
     connect(pagNewAttivita, &PaginaCreazioneAttivita::aggiungiAttivita, this, [this](Attivita *a) {
         gestore->aggiungiAttivita(a);
         swtichPagina0();
@@ -48,9 +54,40 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
         swtichPagina0();
     });
 
-    // NUOVI CONNECT
+    // collegamento per l'eliminazione di attività
     connect(gestore, &GestoreAttivita::attivitaCambiate, pagHome, &PaginaHome::aggiornaPagina);
 
+    // collegamento per la richiesta di modifica di attività
+    connect(pagDettaglio, &PaginaDettaglio::modificaAttivita, this, [this](Attivita *a) {
+        pagModifica->impostaAttivita(a);
+        stack->setCurrentIndex(3);
+    });
+
+    // collegamento per quando si preme il pulsante salva in modifica attività
+    connect(pagModifica, &PaginaModificaAttivita::modificheSalvate, this, [this]() {
+        pagHome->aggiornaPagina();
+        swtichPagina0();
+    });
+
+    // collegamento per tornare indietro dalla pagina di modifica attività
+    connect(pagModifica, &PaginaModificaAttivita::tornaIndietro, this, swtichPagina1);
+
+    // connect per caricare e salvare su file Json, chiedo all'utente il file da scegliere
+    connect(pagHome, &PaginaHome::richiestaCaricaFile, this, [this]() {
+        QString nomeFile =
+            QFileDialog::getOpenFileName(this, "Carica attività", "", "JSON (*.json)");
+        if (!nomeFile.isEmpty()) {
+            gestore->caricaJson(nomeFile);
+        }
+    });
+
+    connect(pagHome, &PaginaHome::richiestaSalvaFile, this, [this]() {
+        QString nomeFile =
+            QFileDialog::getSaveFileName(this, "Salva attività", "", "JSON (*.json)");
+        if (!nomeFile.isEmpty()) {
+            gestore->salvaJson(nomeFile);
+        }
+    });
     //-------------------FINE CONNECT-------------------//
 }
 
@@ -62,4 +99,7 @@ void MainWindow::swtichPagina1() {
 }
 void MainWindow::swtichPagina2() {
     stack->setCurrentIndex(2);
+}
+void MainWindow::swtichPagina3() {
+    stack->setCurrentIndex(3);
 }

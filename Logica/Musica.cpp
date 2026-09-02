@@ -10,10 +10,14 @@ Musica::Musica(std::string nome, std::string descr, int sodd, QDateTime dataIn, 
 
 std::string Musica::dettagliSpecifici() const {
     return "In questa sessione sono stati ascoltati " + std::to_string(numeroBrani) +
-        " brani, il brano preferito e' stato: " + branoPreferito + " di: " + artistaPreferito +
-        " mentre il genere ascoltato maggiormente e': " + generePrincipale + ". " +
+        " brani, il brano preferito e' stato: " + branoPreferito + "\ndi: " + artistaPreferito +
+        "\nmentre il genere ascoltato maggiormente e': " + generePrincipale + ".\n" +
         (scopertaMusicale ? "Sono stati scoperti nuovi brani"
                           : "Non sono stati scoperti nuovi brani");
+}
+
+void Musica::accetta(VisitorAttivita &va) {
+    va.visita(*this);
 }
 
 std::string Musica::getBranoPreferito() const {

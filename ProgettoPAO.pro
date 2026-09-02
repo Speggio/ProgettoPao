@@ -27,10 +27,17 @@ HEADERS += Logica/Attivita.h \
            Logica/Sport.h \
            Logica/Videogiochi.h \
            Logica/GestoreAttivita.h \
+           Logica/GestoreJson.h \
+           Logica/VisitorAttivita.h \
+           Logica/VisitorSalvaModifica.h \
+           Logica/VisitorFiltraAttivita.h \
+           Logica/VisitorJson.h \
            UI/MainWindow.h \
            UI/PaginaDettaglio.h \
            UI/PaginaHome.h \
-           UI/PaginaCreazioneAttivita.h
+           UI/PaginaCreazioneAttivita.h \
+           UI/VisitorModifica.h \
+           UI/PaginaModificaAttivita.h
 SOURCES += main.cpp \
            Logica/Attivita.cpp \
            Logica/Lego.cpp \
@@ -38,7 +45,13 @@ SOURCES += main.cpp \
            Logica/Sport.cpp \
            Logica/Videogiochi.cpp \
            Logica/GestoreAttivita.cpp \
+           Logica/GestoreJson.cpp \
+           Logica/VisitorSalvaModifica.cpp \
+           Logica/VisitorFiltraAttivita.cpp \
+           Logica/VisitorJson.cpp \
            UI/MainWindow.cpp \
            UI/PaginaDettaglio.cpp \
            UI/PaginaHome.cpp \
-           UI/PaginaCreazioneAttivita.cpp
+           UI/PaginaCreazioneAttivita.cpp \
+           UI/VisitorModifica.cpp \
+           UI/PaginaModificaAttivita.cpp

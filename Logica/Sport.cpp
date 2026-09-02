@@ -8,8 +8,14 @@ Sport::Sport(std::string nome, std::string descr, int sodd, QDateTime dataIn, in
 }
 
 std::string Sport::dettagliSpecifici() const {
-    return "Nella sessione di: " + tipoSport + " sono state consumate: " + std::to_string(calorie) +
-        " avendo una frequenza cardiaca media di: " + std::to_string(freqCardiacaMedia);
+    return "Nella sessione di: " + tipoSport +
+        "\nsono state consumate: " + std::to_string(calorie) +
+        " calorie,\navendo una frequenza cardiaca media di: " + std::to_string(freqCardiacaMedia) +
+        " battiti al secondo";
+}
+
+void Sport::accetta(VisitorAttivita &va) {
+    va.visita(*this);
 }
 
 std::string Sport::getTipoSport() const {

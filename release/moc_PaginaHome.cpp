@@ -44,7 +44,9 @@ template <> constexpr inline auto PaginaHome::qt_create_metaobjectdata<qt_meta_t
         "",
         "Attivita*",
         "attivita",
-        "richiestaCreazioneAttivita"
+        "richiestaCreazioneAttivita",
+        "richiestaSalvaFile",
+        "richiestaCaricaFile"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -54,6 +56,10 @@ template <> constexpr inline auto PaginaHome::qt_create_metaobjectdata<qt_meta_t
         }}),
         // Signal 'richiestaCreazioneAttivita'
         QtMocHelpers::SignalData<void()>(5, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'richiestaSalvaFile'
+        QtMocHelpers::SignalData<void()>(6, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'richiestaCaricaFile'
+        QtMocHelpers::SignalData<void()>(7, 2, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -79,6 +85,8 @@ void PaginaHome::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->richiestaDettaglio((*reinterpret_cast<std::add_pointer_t<Attivita*>>(_a[1]))); break;
         case 1: _t->richiestaCreazioneAttivita(); break;
+        case 2: _t->richiestaSalvaFile(); break;
+        case 3: _t->richiestaCaricaFile(); break;
         default: ;
         }
     }
@@ -86,6 +94,10 @@ void PaginaHome::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         if (QtMocHelpers::indexOfMethod<void (PaginaHome::*)(Attivita * )>(_a, &PaginaHome::richiestaDettaglio, 0))
             return;
         if (QtMocHelpers::indexOfMethod<void (PaginaHome::*)()>(_a, &PaginaHome::richiestaCreazioneAttivita, 1))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (PaginaHome::*)()>(_a, &PaginaHome::richiestaSalvaFile, 2))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (PaginaHome::*)()>(_a, &PaginaHome::richiestaCaricaFile, 3))
             return;
     }
 }
@@ -109,14 +121,14 @@ int PaginaHome::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 4;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 4)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 4;
     }
     return _id;
 }
@@ -131,5 +143,17 @@ void PaginaHome::richiestaDettaglio(Attivita * _t1)
 void PaginaHome::richiestaCreazioneAttivita()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
+
+// SIGNAL 2
+void PaginaHome::richiestaSalvaFile()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+}
+
+// SIGNAL 3
+void PaginaHome::richiestaCaricaFile()
+{
+    QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
 }
 QT_WARNING_POP

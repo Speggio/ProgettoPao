@@ -6,9 +6,11 @@
 #include "Videogiochi.h"
 #include <QFormLayout>
 #include <QHBoxLayout>
+#include <QMessageBox>
 #include <QVBoxLayout>
 
-PaginaCreazioneAttivita::PaginaCreazioneAttivita(QWidget *parent) : QWidget(parent) {
+PaginaCreazioneAttivita::PaginaCreazioneAttivita(GestoreAttivita *gestore, QWidget *parent) :
+    QWidget(parent), gestoreAtt(gestore) {
 
     QVBoxLayout *layoutPrincipale = new QVBoxLayout(this);
 
@@ -46,7 +48,7 @@ PaginaCreazioneAttivita::PaginaCreazioneAttivita(QWidget *parent) : QWidget(pare
     nCalorie->setRange(0, 5000);
     layoutSport->addRow("Calorie", nCalorie);
     freCardiaca = new QSpinBox(paginaCampiSport);
-    freCardiaca->setRange(0, 220);
+    freCardiaca->setRange(60, 220);
     layoutSport->addRow("Frequenza cardiaca media", freCardiaca);
 
     // Widget per attivita Muisca
@@ -54,8 +56,8 @@ PaginaCreazioneAttivita::PaginaCreazioneAttivita(QWidget *parent) : QWidget(pare
     QFormLayout *layoutMusica = new QFormLayout(paginaCampiMusica);
     branoPrefe = new QLineEdit(paginaCampiMusica);
     layoutMusica->addRow("Brano preferio:", branoPrefe);
-    atristaPrefe = new QLineEdit(paginaCampiMusica);
-    layoutMusica->addRow("Artista preferito:", atristaPrefe);
+    artistaPrefe = new QLineEdit(paginaCampiMusica);
+    layoutMusica->addRow("Artista preferito:", artistaPrefe);
     generePrinc = new QLineEdit(paginaCampiMusica);
     layoutMusica->addRow("Genere principale ascoltato:", generePrinc);
     nBrani = new QSpinBox(paginaCampiMusica);
@@ -112,7 +114,89 @@ PaginaCreazioneAttivita::PaginaCreazioneAttivita(QWidget *parent) : QWidget(pare
     connect(indietro, &QPushButton::clicked, this, &PaginaCreazioneAttivita::tornaIndietro);
 
     // per creazione di ogni attività
-    connect(creazione, &QPushButton::clicked, this, [this]() {
+    connect(creazione, &QPushButton::clicked, this, &PaginaCreazioneAttivita::creaAttivita);
+}
+
+bool PaginaCreazioneAttivita::campiValidi() {
+    if (titolo->text().trimmed().isEmpty() || descrizione->text().trimmed().isEmpty()) {
+        QMessageBox::warning(this, "Campi mancanti",
+            "Il titolo e la descrizione sono obbligatori.");
+        return false;
+    }
+    switch (selettoreAttivita->currentIndex()) {
+    case 0: // Sport
+        if (tipoSport->text().trimmed().isEmpty()) {
+            QMessageBox::warning(this, "Campo mancante", "Specifica il tipo di sport.");
+            return false;
+        }
+        break;
+    case 1: // Musica
+        if (branoPrefe->text().trimmed().isEmpty() || artistaPrefe->text().trimmed().isEmpty() ||
+            generePrinc->text().trimmed().isEmpty()) {
+            QMessageBox::warning(this, "Campi mancanti",
+                "Brano, artista e genere sono obbligatori.");
+            return false;
+        }
+        break;
+    case 2: // Lego
+        if (nomeSet->text().trimmed().isEmpty() || tipoSet->text().trimmed().isEmpty()) {
+            QMessageBox::warning(this, "Campi mancanti",
+                "nome del set e tipologia del set sono obbligatori.");
+            return false;
+        }
+        break;
+    case 3: // Videogiochi
+        if (nomeGioco->text().trimmed().isEmpty() || piattaforma->text().trimmed().isEmpty() ||
+            genereGioco->text().trimmed().isEmpty()) {
+            QMessageBox::warning(this, "Campi mancanti",
+                "Nome, piattaforma e genere del gioco sono campi obbligatori.");
+            return false;
+        }
+        break;
+    }
+    return true;
+}
+
+void PaginaCreazioneAttivita::pulisciCampi() {
+    titolo->clear();
+    descrizione->clear();
+    livelloSoddisfazione->setValue(0);
+    data->setDate(QDate::currentDate());
+    ore->setValue(0);
+    minuti->setValue(0);
+    selettoreAttivita->setCurrentIndex(0);
+
+    // sport
+    tipoSport->clear();
+    nCalorie->setValue(0);
+    freCardiaca->setValue(0);
+
+    // musica
+    branoPrefe->clear();
+    artistaPrefe->clear();
+    generePrinc->clear();
+    nBrani->setValue(0);
+    scopertaMusica->setChecked(false);
+
+    // lego
+    nomeSet->clear();
+    tipoSet->clear();
+    nPezziTot->setValue(0);
+    completatoLego->setChecked(false);
+
+    // Videogiochi
+    nomeGioco->clear();
+    piattaforma->clear();
+    genereGioco->clear();
+    completatoGioco->setChecked(false);
+}
+
+void PaginaCreazioneAttivita::creaAttivita() {
+    // controllo che non ci siano campi nulli
+    if (!campiValidi())
+        return;
+
+    try {
         // mi prendo i campi comuni a ogni attività
         std::string tit = titolo->text().toStdString();
         std::string desc = descrizione->text().toStdString();
@@ -120,7 +204,6 @@ PaginaCreazioneAttivita::PaginaCreazioneAttivita(QWidget *parent) : QWidget(pare
         QDateTime dt(data->date(), QTime(0, 0));
         int tempoTotale = ore->value() * 60 + minuti->value();
 
-        // creo un nuovo attività per poi metterci l'attività giusta da creare
         Attivita *nuova = nullptr;
 
         // controllo il comboBox per capire quale tipo di attività creare e in base all'indice
@@ -128,25 +211,37 @@ PaginaCreazioneAttivita::PaginaCreazioneAttivita(QWidget *parent) : QWidget(pare
         int indiceTipo = selettoreAttivita->currentIndex();
         switch (indiceTipo) {
         case 0: // Sport
-            nuova = new Sport(tit, desc, sodd, dt, tempoTotale, tipoSport->text().toStdString(),
-                nCalorie->value(), freCardiaca->value());
+
+            nuova = gestoreAtt->creaAttivitaSport(tit, desc, sodd, dt, tempoTotale,
+                tipoSport->text().toStdString(), nCalorie->value(), freCardiaca->value());
+
             break;
         case 1: // Musica
-            nuova = new Musica(tit, desc, sodd, dt, tempoTotale, branoPrefe->text().toStdString(),
-                atristaPrefe->text().toStdString(), generePrinc->text().toStdString(),
-                nBrani->value(), scopertaMusica->isChecked());
+
+            nuova = gestoreAtt->creaAttivitaMusica(tit, desc, sodd, dt, tempoTotale,
+                branoPrefe->text().toStdString(), artistaPrefe->text().toStdString(),
+                generePrinc->text().toStdString(), nBrani->value(), scopertaMusica->isChecked());
             break;
         case 2: // Lego
-            nuova = new Lego(tit, desc, sodd, dt, tempoTotale, nomeSet->text().toStdString(),
-                tipoSet->text().toStdString(), nPezziTot->value(), completatoLego->isChecked());
+
+            nuova = gestoreAtt->creaAttivitaLego(tit, desc, sodd, dt, tempoTotale,
+                nomeSet->text().toStdString(), tipoSet->text().toStdString(), nPezziTot->value(),
+                completatoLego->isChecked());
+
             break;
         case 3: // Videogiochi
-            nuova = new Videogiochi(tit, desc, sodd, dt, tempoTotale,
+
+            nuova = gestoreAtt->creaAttivitaVideogioco(tit, desc, sodd, dt, tempoTotale,
                 nomeGioco->text().toStdString(), piattaforma->text().toStdString(),
                 genereGioco->text().toStdString(), completatoGioco->isChecked());
+
             break;
         }
 
         emit aggiungiAttivita(nuova);
-    });
+
+    } catch (const std::invalid_argument &e) {
+        QMessageBox::warning(this, "Valore non valido", QString::fromStdString(e.what()));
+        return;
+    }
 }
