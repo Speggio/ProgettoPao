@@ -12,10 +12,10 @@ private:
 public:
     QJsonObject getJsonObject();
 
-    void visita(Sport &s);
-    void visita(Musica &m);
-    void visita(Lego &l);
-    void visita(Videogiochi &v);
+    void visita(Sport &s) override;
+    void visita(Musica &m) override;
+    void visita(Lego &l) override;
+    void visita(Videogiochi &v) override;
 };
 
 #endif

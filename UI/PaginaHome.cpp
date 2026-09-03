@@ -20,7 +20,7 @@ PaginaHome::PaginaHome(GestoreAttivita *gestore, QWidget *parent) :
     salvaFile = new QPushButton("Salva File", this);
 
     barraRicerca->setPlaceholderText("Cerca attività");
-    selettoreAttivita->addItems({"Tutte", "Sport", "Musica", "Videogiochi", "Lego"});
+    selettoreAttivita->addItems({"Tutte", "Sport", "Musica", "Lego", "Videogiochi"});
 
     QVBoxLayout *layoutGen = new QVBoxLayout(this);
     QHBoxLayout *layoutParteAlta = new QHBoxLayout;
@@ -38,13 +38,16 @@ PaginaHome::PaginaHome(GestoreAttivita *gestore, QWidget *parent) :
 
     //----------------FINE LAYER E VISUALIZZAZIONE DELLA PAGINA----------------//
 
+    // per la richiesta di creazione
     connect(aggiuntaAttivita, &QPushButton::clicked, this, &PaginaHome::richiestaCreazioneAttivita);
 
+    // per la richiesta del dettaglio attività
     connect(listaAttivita, &QListWidget::itemClicked, this, [this](QListWidgetItem *item) {
         Attivita *a = static_cast<Attivita *>(item->data(Qt::UserRole).value<void *>());
         emit richiestaDettaglio(a);
     });
 
+    // aggiorna la lista nella pagina
     connect(selettoreAttivita, &QComboBox::currentIndexChanged, this, &PaginaHome::aggiornaPagina);
 
     // per filtrare con la barra di ricerca
@@ -57,6 +60,7 @@ PaginaHome::PaginaHome(GestoreAttivita *gestore, QWidget *parent) :
     aggiornaPagina();
 }
 
+// aggiorna pagina facendo anche il filtraggio
 void PaginaHome::aggiornaPagina() {
 
     listaAttivita->clear();

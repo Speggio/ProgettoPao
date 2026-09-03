@@ -6,6 +6,7 @@
 
 PaginaDettaglio::PaginaDettaglio(QWidget *parent) : QWidget(parent) {
 
+    //-------------LAYOUT DELLA PAGINA-------------
     labelTitolo = new QLabel(this);
     labelDescrizione = new QLabel(this);
     labelData = new QLabel(this);
@@ -40,7 +41,9 @@ PaginaDettaglio::PaginaDettaglio(QWidget *parent) : QWidget(parent) {
     layout->addWidget(labelDescrizione);
     layout->addWidget(labelDettagliSpecifici);
     layout->addLayout(layoutBottoni);
+    //-------------LAYOUT DELLA PAGINA-------------
 
+    // per tornare indietro alla home
     connect(indietro, &QPushButton::clicked, this, &PaginaDettaglio::tornaIndietro);
 
     // eliminazione attività

@@ -29,9 +29,9 @@ HEADERS += Logica/Attivita.h \
            Logica/GestoreAttivita.h \
            Logica/GestoreJson.h \
            Logica/VisitorAttivita.h \
-           Logica/VisitorSalvaModifica.h \
            Logica/VisitorFiltraAttivita.h \
            Logica/VisitorJson.h \
+           UI/VisitorSalvaModifica.h \
            UI/MainWindow.h \
            UI/PaginaDettaglio.h \
            UI/PaginaHome.h \
@@ -46,9 +46,9 @@ SOURCES += main.cpp \
            Logica/Videogiochi.cpp \
            Logica/GestoreAttivita.cpp \
            Logica/GestoreJson.cpp \
-           Logica/VisitorSalvaModifica.cpp \
            Logica/VisitorFiltraAttivita.cpp \
            Logica/VisitorJson.cpp \
+           UI/VisitorSalvaModifica.cpp \
            UI/MainWindow.cpp \
            UI/PaginaDettaglio.cpp \
            UI/PaginaHome.cpp \

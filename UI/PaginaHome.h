@@ -26,9 +26,6 @@ signals:
     void richiestaSalvaFile();
     void richiestaCaricaFile();
 
-private slots:
-    // per adesso niente
-
 public:
     void aggiornaPagina();
     PaginaHome(GestoreAttivita *gestore, QWidget *parent = nullptr);

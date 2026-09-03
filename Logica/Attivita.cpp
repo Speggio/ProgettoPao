@@ -11,12 +11,7 @@ Attivita::Attivita(std::string nome, std::string descr, int sodd, QDateTime data
 
 Attivita::~Attivita() {
 }
-// CHIEDERE A CLAUDE SE TOGLIERE DETTAGLI SPECIDICI DA QUA PER CAPIRE SE C'è ANCORA POLIMORFISMO O
-// MENO PERCHè QUESTO ERA IL PRIMO METODO IN TEORIA std::string Attivita::riepilogo() const {
-//     return dataInizio.toString("dd/MM/yyyy").toStdString() + " - " + nome + " (" + descrizione +
-//         ") [" + conversioneOrario() + ", soddisfazione: " + std::to_string(soddisfazione) +
-//         "/10]: " + dettagliSpecifici();
-// }
+
 std::string Attivita::riepilogo() const {
     return nome + " " + dataInizio.toString("dd/MM/yyyy").toStdString() + " " + conversioneOrario();
 }
@@ -53,18 +48,16 @@ int Attivita::getTempoDedicato() const {
     return this->tempoDedicato;
 }
 
-void Attivita::setNome(std::string nome) {
-    if (this->nome.empty())
+void Attivita::setNome(std::string nuovoNome) {
+    if (nuovoNome.empty())
         throw std::invalid_argument("Non si può creare/modificare un'attivita senza nome");
-    else
-        this->nome = nome;
+    nome = nuovoNome;
 }
 
 void Attivita::setDescrizione(std::string descr) {
-    if (descrizione.empty())
+    if (descr.empty())
         throw std::invalid_argument("Non si può creare/modificare un'attivita senza descrizione");
-    else
-        descrizione = descr;
+    descrizione = descr;
 }
 
 void Attivita::setSoddisfazione(int sodd) {

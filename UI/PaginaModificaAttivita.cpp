@@ -15,6 +15,8 @@ PaginaModificaAttivita::PaginaModificaAttivita(QWidget *parent) : QWidget(parent
 
     QVBoxLayout *layoutPrincipale = new QVBoxLayout(this);
 
+    //-------------LAYOUT DELLA PAGINA-------------
+
     // creazione widget principali per il layout
     stackCampiSpecifici = new QStackedWidget(this);
     annulla = new QPushButton("Annulla", this);
@@ -105,12 +107,16 @@ PaginaModificaAttivita::PaginaModificaAttivita(QWidget *parent) : QWidget(parent
     layoutBottoni->addWidget(salva);
 
     layoutPrincipale->addLayout(layoutBottoni);
+    //-------------LAYOUT DELLA PAGINA-------------
 
+    // per tornare indietro
     connect(annulla, &QPushButton::clicked, this, &PaginaModificaAttivita::tornaIndietro);
 
+    // quando si vuole salvare la modifica
     connect(salva, &QPushButton::clicked, this, &PaginaModificaAttivita::cliccaSalva);
 }
 
+// controllo anche qua per i campi
 bool PaginaModificaAttivita::campiValidi() {
     if (titolo->text().trimmed().isEmpty() || descrizione->text().trimmed().isEmpty()) {
         QMessageBox::warning(this, "Campi mancanti",
@@ -151,6 +157,7 @@ bool PaginaModificaAttivita::campiValidi() {
     return true;
 }
 
+// si imposta la modifica pper i dati generali
 void PaginaModificaAttivita::impostaAttivita(Attivita *a) {
     attivitaCorrente = a;
 
@@ -165,6 +172,7 @@ void PaginaModificaAttivita::impostaAttivita(Attivita *a) {
     a->accetta(vm);
 }
 
+// impostazione e applicazione dei vari campi specifici per ogni attività
 void PaginaModificaAttivita::impostaCampiSport(Sport &s) {
     stackCampiSpecifici->setCurrentWidget(paginaCampiSport);
     tipoCorrente = TipoAttivita::Sport;

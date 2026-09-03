@@ -12,6 +12,8 @@
 PaginaCreazioneAttivita::PaginaCreazioneAttivita(GestoreAttivita *gestore, QWidget *parent) :
     QWidget(parent), gestoreAtt(gestore) {
 
+    //-------------LAYOUT DELLA PAGINA-------------
+
     QVBoxLayout *layoutPrincipale = new QVBoxLayout(this);
 
     // creazione widget principali per il layout
@@ -111,12 +113,17 @@ PaginaCreazioneAttivita::PaginaCreazioneAttivita(GestoreAttivita *gestore, QWidg
 
     layoutPrincipale->addLayout(layoutBottoni);
 
+    //-------------FINE LAYOUT PAGINA-------------
+
+    // per tornare indietro
     connect(indietro, &QPushButton::clicked, this, &PaginaCreazioneAttivita::tornaIndietro);
 
     // per creazione di ogni attività
     connect(creazione, &QPushButton::clicked, this, &PaginaCreazioneAttivita::creaAttivita);
 }
 
+// controllo per vedere se i campi essenziali siano riempiti, controllo solo visivo, vengono fatti
+// anche nei setter
 bool PaginaCreazioneAttivita::campiValidi() {
     if (titolo->text().trimmed().isEmpty() || descrizione->text().trimmed().isEmpty()) {
         QMessageBox::warning(this, "Campi mancanti",
@@ -157,6 +164,8 @@ bool PaginaCreazioneAttivita::campiValidi() {
     return true;
 }
 
+// pulisce i campi dopo ogni creazione, per evitare che quando si torna indietro dalla pagina di
+// creazione e si tenta di crearne una nuova, i campi non rimangano già compilati
 void PaginaCreazioneAttivita::pulisciCampi() {
     titolo->clear();
     descrizione->clear();
@@ -191,6 +200,7 @@ void PaginaCreazioneAttivita::pulisciCampi() {
     completatoGioco->setChecked(false);
 }
 
+// effettiva creazione delle attività, che verranno poi passate alla logica
 void PaginaCreazioneAttivita::creaAttivita() {
     // controllo che non ci siano campi nulli
     if (!campiValidi())

@@ -26,7 +26,7 @@ void GestoreJson::salvaInFile(const QString &nomeFile, const std::vector<Attivit
     }
 }
 
-void GestoreJson::CaricaDaFile(const QString &nomeFile, std::vector<Attivita *> &att) {
+void GestoreJson::caricaDaFile(const QString &nomeFile, std::vector<Attivita *> &att) {
     QFile file(nomeFile);
 
     if (!file.open(QIODevice::ReadOnly)) {
@@ -38,6 +38,7 @@ void GestoreJson::CaricaDaFile(const QString &nomeFile, std::vector<Attivita *> 
     QJsonDocument doc = QJsonDocument::fromJson(dati);
     QJsonArray jsonArray = doc.array();
 
+    // prima carichiamo tutti i dati generali
     for (const QJsonValue &value : jsonArray) {
         QJsonObject obj = value.toObject();
         QString tipo = obj["tipoAtt"].toString();
@@ -48,6 +49,7 @@ void GestoreJson::CaricaDaFile(const QString &nomeFile, std::vector<Attivita *> 
         QDateTime Qdata = QDateTime::fromString(dataStr, "dd/MM/yyyy");
         int tempo = obj["tempo"].toInt();
 
+        // in base al tipo di attività carico gli altri dati
         if (tipo == "Sport") {
             QString tipoSport = obj["tipoSport"].toString();
             int cal = obj["calorie"].toInt();

@@ -35,7 +35,6 @@ public:
     void caricaJson(const QString &nomeFile);
 
 signals:
-    // il modello notifica che i dati sono cambiati
     void attivitaCambiate();
 };
 

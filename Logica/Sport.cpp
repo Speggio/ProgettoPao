@@ -11,7 +11,7 @@ std::string Sport::dettagliSpecifici() const {
     return "Nella sessione di: " + tipoSport +
         "\nsono state consumate: " + std::to_string(calorie) +
         " calorie,\navendo una frequenza cardiaca media di: " + std::to_string(freqCardiacaMedia) +
-        " battiti al secondo";
+        " battiti al minuto";
 }
 
 void Sport::accetta(VisitorAttivita &va) {

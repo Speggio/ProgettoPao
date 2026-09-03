@@ -16,7 +16,7 @@ class GestoreJson {
 public:
     static void salvaInFile(const QString &nomeFile, const std::vector<Attivita *> &att);
 
-    static void CaricaDaFile(const QString &nomeFile, std::vector<Attivita *> &att);
+    static void caricaDaFile(const QString &nomeFile, std::vector<Attivita *> &att);
 };
 
 #endif
